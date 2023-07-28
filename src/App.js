@@ -88,35 +88,45 @@ function FactList() {
     <section>
       <ul className="facts-list">
         {facts.map((fact) => (
-          <li key={fact.id} className="fact">
-            <p>
-              {fact.text}
-              <a
-                className="source"
-                href={fact.source}
-                target="_blank"
-              >
-                (Source)
-              </a>
-            </p>
-            <span className="tag" style={{ backgroundColor: CATEGORIES.find((cat) => cat.name === fact.category).color }}>
-              {fact.category}
-            </span>
-            <div className="vote-buttons">
-              <button>
-                👍 <strong>{fact.votesInteresting}</strong>
-              </button>
-              <button>
-                🤯 <strong>{fact.votesMindblowing}</strong>
-              </button>
-              <button>
-                ⛔️ <strong>{fact.votesFalse}</strong>
-              </button>
-            </div>
-          </li>
+          <Facts key={fact.id} fact={fact} />
         ))}
       </ul>
+
+      <p>There are {facts.length} in the database. Add your own</p>
     </section>
+  );
+}
+
+function Facts({ fact }) {
+  return (
+    <li className="fact">
+      <p>
+        {fact.text}
+        <a className="source" href={fact.source} target="_blank">
+          (Source)
+        </a>
+      </p>
+      <span
+        className="tag"
+        style={{
+          backgroundColor: CATEGORIES.find((cat) => cat.name === fact.category)
+            .color,
+        }}
+      >
+        {fact.category}
+      </span>
+      <div className="vote-buttons">
+        <button>
+          👍 <strong>{fact.votesInteresting}</strong>
+        </button>
+        <button>
+          🤯 <strong>{fact.votesMindblowing}</strong>
+        </button>
+        <button>
+          ⛔️ <strong>{fact.votesFalse}</strong>
+        </button>
+      </div>
+    </li>
   );
 }
 
