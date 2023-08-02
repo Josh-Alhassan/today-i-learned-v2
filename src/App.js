@@ -49,6 +49,9 @@ function Count () {
 }
 
 function App() {
+  // 1. Set state Variable
+  const [showForm, setShowForm] = useState(false);
+
   const appTitle = "Today I Learned";
 
   return (
@@ -59,11 +62,17 @@ function App() {
           <img src="logo.png" alt="Today I Learned Logo" />
           <h1>{appTitle}</h1>
         </div>
-        <button className="btn btn-large btn-open">Share a fact</button>
+        <button 
+            className="btn btn-large btn-open"
+
+            // Update state variable
+            onClick={() => setShowForm((show) => !show)}    
+        >Share a fact</button>
       </header>
 
-      <Count />
-      <NewFactForm />
+      {/* <Count /> */}
+      {/* 2. Use State Variable */}
+      {showForm ? <NewFactForm /> : null}
       <main className="main">
         <CategoryFilter />
         <FactList />
