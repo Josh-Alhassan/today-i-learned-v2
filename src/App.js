@@ -35,17 +35,18 @@ const initialFacts = [
   },
 ];
 
-
-function Count () {
+function Count() {
   // use State
   const [count, setCount] = useState(0);
 
   return (
     <div>
-      <span style={{fontSize: "40px"}}>{count}</span>
-      <button className="btn btn-large" onClick={() => setCount((c) => c + 1)} >+1</button>
+      <span style={{ fontSize: "40px" }}>{count}</span>
+      <button className="btn btn-large" onClick={() => setCount((c) => c + 1)}>
+        +1
+      </button>
     </div>
-  )
+  );
 }
 
 function App() {
@@ -54,7 +55,6 @@ function App() {
 
   return (
     <>
-      
       <Header showForm={showForm} setShowForm={setShowForm} />
       {/* <Count /> */}
       {/* 2. Use State Variable */}
@@ -67,30 +67,24 @@ function App() {
   );
 }
 
-function Header ({showForm, setShowForm}) {
+function Header({ showForm, setShowForm }) {
   const appTitle = "Today I Learned";
 
-  return(
-    <header className="header">
-        <div className="logo">
-          <img src="logo.png" alt="Today I Learned Logo" />
-          <h1>{appTitle}</h1>
-        </div>
-        <button 
-            className="btn btn-large btn-open"
-
-            // Update state variable
-            onClick={() => setShowForm((show) => !show)}    
-        > {showForm ? "Close" : "Share a fact"} </button>
-      </header>
-  )
-}
-
-function NewFactForm() {
   return (
-    <>
-      <form className="fact-form">New Fact form</form>
-    </>
+    <header className="header">
+      <div className="logo">
+        <img src="logo.png" alt="Today I Learned Logo" />
+        <h1>{appTitle}</h1>
+      </div>
+      <button
+        className="btn btn-large btn-open"
+        // Update state variable
+        onClick={() => setShowForm((show) => !show)}
+      >
+        {" "}
+        {showForm ? "Close" : "Share a fact"}{" "}
+      </button>
+    </header>
   );
 }
 
@@ -104,6 +98,53 @@ const CATEGORIES = [
   { name: "history", color: "#f97316" },
   { name: "news", color: "#8b5cf6" },
 ];
+
+function NewFactForm() {
+  const [text, setText] = useState("");
+  const [source, setSource] = useState("");
+  const [category, setCategory] = useState("");
+
+  const textLength = text.length;
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    console.log(text, source, category);
+  }
+
+  return (
+    <>
+      <form className="fact-form" onSubmit={handleSubmit}>
+        <input
+          type="text"
+          placeholder="Share a fact with the world..."
+          value={text}
+          onChange={(e) => setText(e.target.value)}
+        />
+        <span>{200 - textLength}</span>
+        <input
+          type="text"
+          placeholder="Trustworthy spurce..."
+          value={source}
+          onChange={(e) => setSource(e.target.value)}
+        />
+        <select>
+          <option
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}
+          >
+            Choose category
+          </option>
+          {CATEGORIES.map((category) => (
+            <option value={category.name} key={category.name}>
+              {category.name.toUpperCase()}
+            </option>
+          ))}
+        </select>
+        <button className="btn btn-large">Post</button>
+      </form>
+    </>
+  );
+}
 
 function CategoryFilter() {
   return (
